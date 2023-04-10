@@ -1,16 +1,15 @@
 #Core
 from core.db import db
+from core.models.supervisers import Supervisers
 
 
 #Peewee
-from peewee import Model, IntegerField
+from peewee import Model, ForeignKeyField
 
 
-class Group(Model):
-    superviser_id: int = IntegerField(
-        unique=True,
-        index=True
-    )
+class Workgroups(Model):
+    superviser = ForeignKeyField(column_name='superviser_id', field='id', model=Supervisers)
 
     class Meta:
         database = db
+        table_name = 'workgroups'

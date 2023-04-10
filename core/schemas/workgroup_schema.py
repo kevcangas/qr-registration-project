@@ -2,7 +2,7 @@
 from pydantic import BaseModel, Field
 
 
-class Group(BaseModel):
+class Workgroups(BaseModel):
     id: int = Field(
         ...,
         gt=0,

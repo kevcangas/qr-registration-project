@@ -2,7 +2,7 @@
 from core.db import db
 
 #peewee
-from peewee import Model, CharField
+from peewee import Model, CharField, PrimaryKeyField
 
 
 class Supervisers(Model):
