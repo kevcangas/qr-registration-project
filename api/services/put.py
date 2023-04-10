@@ -1,22 +1,17 @@
-#Models
 from core.models.supervisers import Supervisers
 from core.models.workgroups import Workgroups
 from core.models.users import Users
 from core.models.sessions import Sessions
 
 
-id = lambda model: len(model)+1 if len(model) else 1
-
-
-#Creates a new object with the introduced values
-def createObject(object, body_type):
+def modifyObject(object, body_type):
     if object == 'supervisers': newObject = Supervisers(
             id=id(Supervisers),
             name=body_type.name
             )
     
     elif object == 'workgroups': newObject = Workgroups(
-            id=id(Workgroups) ,
+            id=id(Workgroups),
             superviser=body_type.superviser_id
             )
     
@@ -30,7 +25,8 @@ def createObject(object, body_type):
             id=id(Sessions),
             #end_time=body_type.end_time,
             start_time=body_type.start_time,
-            user=body_type.user)
+            user=body_type.user
+            )
 
     newObject.save(force_insert=True)
     return body_type
