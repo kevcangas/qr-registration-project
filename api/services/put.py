@@ -4,29 +4,45 @@ from core.models.users import Users
 from core.models.sessions import Sessions
 
 
-def modifyObject(object, body_type):
-    if object == 'supervisers': newObject = Supervisers(
-            id=id(Supervisers),
-            name=body_type.name
-            )
-    
-    elif object == 'workgroups': newObject = Workgroups(
-            id=id(Workgroups),
-            superviser=body_type.superviser_id
-            )
-    
-    elif object == 'users': newObject = Users(
-            id=id(Users), 
-            group=body_type.group, 
-            name=body_type.name
-            )
-        
-    elif object == 'sessions': newObject = Sessions(
-            id=id(Sessions),
-            #end_time=body_type.end_time,
-            start_time=body_type.start_time,
-            user=body_type.user
-            )
+from fastapi import HTTPException, status
 
-    newObject.save(force_insert=True)
-    return body_type
+
+def modifyObject(object, id_object, body_type):
+    try:
+        if object == 'supervisers': 
+             if Supervisers.get_by_id(id_object):
+                modObject = Supervisers(
+                                id=id_object,
+                                name=body_type.name
+                                )
+        
+        elif object == 'workgroups':
+             if Workgroups.get_by_id(id_object): 
+                modObject = Workgroups(
+                                id=id_object,
+                                superviser=body_type.superviser_id
+                                )
+        
+        elif object == 'users': 
+             if Users.get_by_id(id_object):
+                modObject = Users(
+                                id=id_object, 
+                                group=body_type.group, 
+                                name=body_type.name
+                                )
+                
+        elif object == 'sessions': 
+            if Sessions.get_by_id(id_object):
+                modObject = Sessions(
+                                id=id_object,
+                                end_time=body_type.end_time,
+                                #start_time=body_type.start_time,
+                                user=body_type.user
+                                )
+    except:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+
+    modObject.save()
+    return {
+        "detail": body_type
+    }

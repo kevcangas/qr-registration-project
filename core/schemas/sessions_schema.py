@@ -7,13 +7,10 @@ from pydantic import BaseModel, Field
 
 
 class Sessions(BaseModel):
-    # id: int = Field(
-    #     ...,
-    #     example = 1
+    
+    # end_time:datetime = Field(
+    #     ...
     # )
-    end_time:datetime = Field(
-        ...
-    )
     start_time:datetime = Field(
         ...,
         #example=datetime.now
@@ -22,4 +19,12 @@ class Sessions(BaseModel):
         ...,
         example=1,
         title="user_id"
+    )
+
+
+class modSessions(Sessions):
+
+    id: int = Field(
+        ...,
+        example = 1
     )
