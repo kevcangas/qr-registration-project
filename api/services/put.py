@@ -4,9 +4,11 @@ from core.models.users import Users
 from core.models.sessions import Sessions
 
 
+#fastapi
 from fastapi import HTTPException, status
 
 
+#This function modify the values of a entry model
 def modifyObject(object, id_object, body_type):
     try:
         if object == 'supervisers': 
@@ -37,12 +39,15 @@ def modifyObject(object, id_object, body_type):
                                 id=id_object,
                                 end_time=body_type.end_time,
                                 #start_time=body_type.start_time,
-                                user=body_type.user
+                                #user=body_type.user
                                 )
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
 
+    ida = modObject.id
     modObject.save()
+    modObject.id = ida
+
     return {
-        "detail": body_type
+        "detail": modObject.__data__
     }

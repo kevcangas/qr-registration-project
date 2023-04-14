@@ -94,22 +94,22 @@ def get_users_in_workgroup(id_workgroup: int = Path(..., example=1)):
 
 
 #POST petitions
-@app.post(path='/supervisers/new', tags=["Supervisers"])
+@app.post(path='/supervisers', tags=["Supervisers"])
 def new_superviser(objectType: Supervisers = Body(...)):
     return post.createObject('supervisers', objectType)
 
 
-@app.post(path='/workgroups/new', tags=["Workgroups"])
+@app.post(path='/workgroups', tags=["Workgroups"])
 def new_workgroup(objectType: Workgroups = Body(...)):
     return post.createObject('workgroups', objectType)
 
 
-@app.post(path='/users/new', tags=["Users"])
+@app.post(path='/users', tags=["Users"])
 def new_user(objectType: Users = Body(...)):
     return post.createObject('users', objectType)
 
 
-@app.post(path='/sessions/new', tags=["Sessions"])
+@app.post(path='/sessions', tags=["Sessions"])
 def new_session(objectType: Sessions = Body(...)):
     return post.createObject('sessions', objectType)
 
@@ -142,6 +142,6 @@ def mod_user(
 @app.put(path='/sessions/{id_object}', tags=["Sessions"])
 def mod_session(
         id_object: int = Path(..., example=1), 
-        objectType: Sessions = Body(...)
+        objectType: modSessions = Body(...)
         ):
     return put.modifyObject('sessions', id_object, objectType)
