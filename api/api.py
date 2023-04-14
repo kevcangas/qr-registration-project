@@ -9,6 +9,7 @@ from core.schemas.sessions_schema import Sessions, modSessions
 from api.services import get
 from api.services import post
 from api.services import put
+from api.services import delete
 
 
 #FastAPI
@@ -145,3 +146,33 @@ def mod_session(
         objectType: modSessions = Body(...)
         ):
     return put.modifyObject('sessions', id_object, objectType)
+
+
+#DELETE petitions
+
+@app.delete(path='/supervisers/{id_object}', tags=['Supervisers'])
+def delete_superviser(
+        id_object: int = Path(..., example=1)
+        ):
+    return delete.deleteObject('supervisers',id_object)
+
+
+@app.delete(path='/workgroups/{id_object}', tags=['Workgroups'])
+def delete_workgroup(
+        id_object: int = Path(..., example=1)
+        ):
+    return delete.deleteObject('workgroups',id_object)
+
+
+@app.delete(path='/users/{id_object}', tags=['Users'])
+def delete_user(
+        id_object: int = Path(..., example=1)
+        ):
+    return delete.deleteObject('users',id_object)
+
+
+@app.delete(path='/sessions/{id_object}', tags=['Sessions'])
+def delete_session(
+        id_object: int = Path(..., example=1)
+        ):
+    return delete.deleteObject('sessions',id_object)

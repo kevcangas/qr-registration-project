@@ -5,12 +5,12 @@ from core.models.users import Users
 from core.models.sessions import Sessions
 
 
+#utils
+from utils.utils import id
+
+
 #fastapi
 from fastapi import HTTPException, status
-
-
-#Function to get the last id of a model
-id = lambda model: len(model)+1 if len(model) else 1
 
 
 #Creates a new object with the introduced values
