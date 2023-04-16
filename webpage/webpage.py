@@ -8,3 +8,8 @@ webpage = APIRouter()
 @webpage.get(path='/home')
 def home():
     return FileResponse(".\static\home\index.html")
+
+
+@webpage.get(path='/users')
+def home():
+    return FileResponse(".\static\users\index.html")
