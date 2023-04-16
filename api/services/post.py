@@ -28,7 +28,6 @@ def createObject(object, body_type):
         
         elif object == 'users': newObject = Users(
                 id=id(Users), 
-                group=body_type.group, 
                 name=body_type.name
                 )
                 
