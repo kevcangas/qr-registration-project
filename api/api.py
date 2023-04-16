@@ -18,30 +18,30 @@ from fastapi import Path, Body
 
 
 api = APIRouter()
-
+ver = '/v1'
 
 #GET petitions
-@api.get(path='/supervisers', tags=["Supervisers"])
+@api.get(path=ver+'/supervisers', tags=["Supervisers"])
 def get_all_supervisers():
     return get.allObjects('supervisers')
 
 
-@api.get(path='/workgroups', tags=["Workgroups"])
+@api.get(path=ver+'/workgroups', tags=["Workgroups"])
 def get_all_workgroups():
     return get.allObjects('workgroups')
 
 
-@api.get(path='/users', tags=["Users"])
+@api.get(path=ver+'/users', tags=["Users"])
 def get_all_users():
     return get.allObjects('users')
 
 
-@api.get(path='/sessions', tags=["Sessions"])
+@api.get(path=ver+'/sessions', tags=["Sessions"])
 def get_all_sessions():
     return get.allObjects('sessions')
 
 
-@api.get(path='/supervisers/{id_object}', tags=["Supervisers"])
+@api.get(path=ver+'/supervisers/{id_object}', tags=["Supervisers"])
 def get_id_superviser(
     id_object: int = Path(
             ...,
@@ -53,7 +53,7 @@ def get_id_superviser(
     return get.idObject('supervisers', id_object)
 
 
-@api.get(path='/workgroups/{id_object}', tags=["Workgroups"])
+@api.get(path=ver+'/workgroups/{id_object}', tags=["Workgroups"])
 def get_id_workgroup(
     id_object: int = Path(
             ...,
@@ -65,7 +65,7 @@ def get_id_workgroup(
     return get.idObject('workgroups', id_object)
 
 
-@api.get(path='/users/{id_object}', tags=["Users"])
+@api.get(path=ver+'/users/{id_object}', tags=["Users"])
 def get_id_user(
     id_object: int = Path(
             ...,
@@ -77,7 +77,7 @@ def get_id_user(
     return get.idObject('users', id_object)
 
 
-@api.get(path='/sessions/{id_object}', tags=["Sessions"])
+@api.get(path=ver+'/sessions/{id_object}', tags=["Sessions"])
 def get_id_session(
     id_object: int = Path(
             ...,
@@ -89,35 +89,35 @@ def get_id_session(
     return get.idObject('sessions', id_object)
 
 
-@api.get(path='/workgroups/{id_workgroup}/users', tags=["Workgroups"])
+@api.get(path=ver+'/workgroups/{id_workgroup}/users', tags=["Workgroups"])
 def get_users_in_workgroup(id_workgroup: int = Path(..., example=1)):
     return get.peopleWorkgroup(id_workgroup)
 
 
 #POST petitions
-@api.post(path='/supervisers', tags=["Supervisers"])
+@api.post(path=ver+'/supervisers', tags=["Supervisers"])
 def new_superviser(objectType: Supervisers = Body(...)):
     return post.createObject('supervisers', objectType)
 
 
-@api.post(path='/workgroups', tags=["Workgroups"])
+@api.post(path=ver+'/workgroups', tags=["Workgroups"])
 def new_workgroup(objectType: Workgroups = Body(...)):
     return post.createObject('workgroups', objectType)
 
 
-@api.post(path='/users', tags=["Users"])
+@api.post(path=ver+'/users', tags=["Users"])
 def new_user(objectType: Users = Body(...)):
     return post.createObject('users', objectType)
 
 
-@api.post(path='/sessions', tags=["Sessions"])
+@api.post(path=ver+'/sessions', tags=["Sessions"])
 def new_session(objectType: Sessions = Body(...)):
     return post.createObject('sessions', objectType)
 
 
 
 #PUT petitions
-@api.put(path='/supervisers/{id_object}', tags=["Supervisers"])
+@api.put(path=ver+'/supervisers/{id_object}', tags=["Supervisers"])
 def mod_superviser(
         id_object: int = Path(..., example=1), 
         objectType: Supervisers = Body(...)
@@ -125,14 +125,14 @@ def mod_superviser(
     return put.modifyObject('supervisers', id_object, objectType)
 
 
-@api.put(path='/workgroups/{id_object}', tags=["Workgroups"])
+@api.put(path=ver+'/workgroups/{id_object}', tags=["Workgroups"])
 def mod_workgroup(
         id_object: int = Path(..., example=1), 
         objectType: Workgroups = Body(...)):
     return put.modifyObject('workgroups', id_object, objectType)
 
 
-@api.put(path='/users/{id_object}', tags=["Users"])
+@api.put(path=ver+'/users/{id_object}', tags=["Users"])
 def mod_user(
         id_object: int = Path(..., example=1)
         , objectType: Users = Body(...)
@@ -140,7 +140,7 @@ def mod_user(
     return put.modifyObject('users', id_object, objectType)
 
 
-@api.put(path='/sessions/{id_object}', tags=["Sessions"])
+@api.put(path=ver+'/sessions/{id_object}', tags=["Sessions"])
 def mod_session(
         id_object: int = Path(..., example=1), 
         objectType: modSessions = Body(...)
@@ -150,28 +150,28 @@ def mod_session(
 
 #DELETE petitions
 
-@api.delete(path='/supervisers/{id_object}', tags=['Supervisers'])
+@api.delete(path=ver+'/supervisers/{id_object}', tags=['Supervisers'])
 def delete_superviser(
         id_object: int = Path(..., example=1)
         ):
     return delete.deleteObject('supervisers',id_object)
 
 
-@api.delete(path='/workgroups/{id_object}', tags=['Workgroups'])
+@api.delete(path=ver+'/workgroups/{id_object}', tags=['Workgroups'])
 def delete_workgroup(
         id_object: int = Path(..., example=1)
         ):
     return delete.deleteObject('workgroups',id_object)
 
 
-@api.delete(path='/users/{id_object}', tags=['Users'])
+@api.delete(path=ver+'/users/{id_object}', tags=['Users'])
 def delete_user(
         id_object: int = Path(..., example=1)
         ):
     return delete.deleteObject('users',id_object)
 
 
-@api.delete(path='/sessions/{id_object}', tags=['Sessions'])
+@api.delete(path=ver+'/sessions/{id_object}', tags=['Sessions'])
 def delete_session(
         id_object: int = Path(..., example=1)
         ):
