@@ -31,6 +31,7 @@ ul {
 
 li {
     float: left;
+    list-style: none;
 }
 
 li a {
@@ -58,37 +59,12 @@ li a:hover {
 
 header {
     font-family: 'Lucida Sans';
-    font-weight: bold;
     font-size: 40px;
+    font-weight: bold;
 }
 
 h2 {
     font-family: 'Lucida Sans';
-}
-
-p {
-    font-family: 'Arial';
-}
-
-.introduction {
-    font-size: 20px;
-    /* font-weight: bold; */
-
-    width: 70%;
-    margin-top: 50px;
-    margin-bottom: 50px;
-
-    text-align: center;
-    line-height: 20px;
-}
-
-.justify {
-    font-size: 14px;
-
-    width: 50%;
-
-    text-align: justify;
-    line-height: 20px;
 }
 
 .table-container {
@@ -99,7 +75,7 @@ p {
     justify-content: center;
 
     width: 70vw;
-    height: 250px;
+    height: 100px;
     margin-top: 50px;
 
     font-family: 'Helvetica';
@@ -115,7 +91,7 @@ table{
 }
 
 .table-body{
-    height:300px;
+    height:100px;
     overflow-x:auto;
     margin-top: 0px;
     border: 1px solid rgba(255,255,255,0.3);
@@ -144,7 +120,7 @@ tr {
     border-bottom-color: solid 2px rgba(0, 0, 0, 0.205)
 }
 
-.button-container {
+.form-container {
     display: flex;
     align-items: center;
     justify-content: center;

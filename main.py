@@ -6,7 +6,6 @@ from webpage.webpage import webpage
 #fastapi
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.routing import Mount, APIWebSocketRoute
 
 
 #Function to start the app

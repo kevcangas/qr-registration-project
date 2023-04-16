@@ -17,5 +17,35 @@
             <li><a href="http://127.0.0.1:8000/sessions">Sessions</a></li>
         </ul>
     </nav>
+    <div class="main-container">
+        <header>User by id</header>
+        <div class="table-container">
+            <div class="table-header">
+                <table>
+                    <thead>
+                        <tr class="titles">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Group ID</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="table-body">
+                <table>
+                    <tbody>
+                        <tr class="old-row"></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="form-container">
+            <li>
+                <input type="text" placeholder="Introduce the user ID">
+                <button type="submit" class="send">Search</button>
+            </li>
+        </div>
+    </div>
 </body>
+<script src="http://127.0.0.1:8000/static/users/search/script.js"></script>
 </html>
