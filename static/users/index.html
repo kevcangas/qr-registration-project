@@ -22,10 +22,19 @@
     <div class="main-container">
         
         <header>Registered users</header>
+
         <div class="table-container">
             <div class="table-header">
                 <table>
                     <thead>
+                        <thead>
+                            <tr class="titles">
+                                <th></th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Group ID</th>
+                            </tr>
+                        </thead>
                     </thead>
                 </table>
             </div>
@@ -37,9 +46,38 @@
             </div>
         </div>
 
+        <div class="table-search">
+            <div class="table-header">
+                <table>
+                    <thead>
+                        <tr class="titles">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Group ID</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="table-body">
+                <table>
+                    <tbody>
+                        <tr class="old-row"></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-container inactive">
+            <li>
+                <input type="text" placeholder="Introduce the user ID">
+                <button type="submit" class="send">Search</button>
+            </li>
+        </div>
+
         <div class="btn-container">
-            <button class="reload">Reload</button>
-            <a href="http://127.0.0.1:8000/users/search"><button class="search">Search user by id</button></a>
+            <button class="all-users">All users</button>
+            <button class="search">Search user by id</button>
+            <button class="edit">Edit user</button>
         </div>
     
     </div>
