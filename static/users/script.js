@@ -21,6 +21,11 @@ const btn_send = document.querySelector('.send');
 const data = document.querySelector('.form-container input');
 
 
+//Elements to delete slected user
+const btn_delete = document.querySelector('.del')
+var checkboxes
+
+
 //functions
 //functions to all users
 function getUsers() {
@@ -40,37 +45,53 @@ function getUsers() {
     request.send();
 }
 
+
 function showUsers(users) {
     
-    for (user of users){
-        const row = document.createElement('tr');
+    return new Promise((resolve, reject) =>{
+        for (user of users){
 
-        const checkContainer = document.createElement('td')
+            const row = document.createElement('tr');
 
-        const checkUser = document.createElement('input')
-        checkUser.type = 'checkbox'
+            const checkContainer = document.createElement('td')
 
-        const ID = document.createElement('td');
-        ID.innerText = user.id;
+            const checkUser = document.createElement('input')
+            checkUser.type = 'checkbox'
+            checkUser.classList.add('checkbox')
 
-        const name = document.createElement('td');
-        name.innerText = user.name;
+            const ID = document.createElement('td');
+            ID.innerText = user.id;
 
-        const groupID = document.createElement('td');
-        groupID.innerText = user.group;
+            checkUser.name = ID.innerText
 
-        checkContainer.appendChild(checkUser)
+            const name = document.createElement('td');
+            name.innerText = user.name;
 
-        row.appendChild(checkContainer)
-        row.appendChild(ID)
-        row.appendChild(name)
-        row.appendChild(groupID)
-        table_body.appendChild(row)
-    }
+            const groupID = document.createElement('td');
+            groupID.innerText = user.group;
+
+            checkContainer.appendChild(checkUser)
+
+            row.appendChild(checkContainer)
+            row.appendChild(ID)
+            row.appendChild(name)
+            row.appendChild(groupID)
+            table_body.appendChild(row)
+        }
+        resolve()
+    })
+    .then(() => {
+            checkboxes = document.querySelectorAll('.checkbox');
+
+            for (checkbox of checkboxes){
+                checkbox.addEventListener('input', selectUser);
+            }
+        })
 }
 
 
 //functions to show a user by id
+var searched = null
 function getUser() {
     const endpoint = 'v1/users/'
     const URL = ip + endpoint
@@ -101,6 +122,7 @@ function showUser(user) {
 
     const ID = document.createElement('td');
     ID.innerText = user.id;
+    searched = parseInt(ID.innerText)
 
     const name = document.createElement('td');
     name.innerText = user.name;
@@ -134,8 +156,73 @@ function activateSearchUser() {
 }
 
 
+//functions to delete a selected person
+var id_checkbox = null
+function selectUser() {
+    
+    if (this.checked){
+        id_checkbox = parseInt(this.name)
+        for (checkbox of checkboxes){
+            if (checkbox != this) checkbox.disabled = true
+        }
+    }
+    else {
+        id_checkbox = 0
+        for (checkbox of checkboxes){
+            if (checkbox != this) checkbox.disabled = false
+        }
+    }
+}
+
+
+function deleteUser(id, searched) {
+    if (id == searched){
+        return new Promise((resolve,reject) =>{
+            const endpoint = 'v1/users/'
+            const URL = ip + endpoint
+
+            console.log(id);
+
+            request.open('DELETE', URL + id);
+            request.responseType = 'json';
+            request.onload = function () {
+                if (this.status == 200){
+                    var users = this.response;
+                    showUser(users.detail)
+                } else {
+                    console.log(`An error occurred during your request! Code: ${request.status}`);
+                    var user = {name: 'No exists', id: 'No exists', group: 'No exists'}
+                    showUser(user)
+                }
+            }
+            request.send();
+            resolve()
+        })
+        .then(() => window.location.reload())
+    } 
+    else {
+        console.log("User and searched user don't match");
+    }
+}
+
+
 //listeners
 window.addEventListener('load', getUsers);
+
 btn_all_users.addEventListener('click', activateAllUsers)
+
 btn_search.addEventListener('click', activateSearchUser)
+
 btn_send.addEventListener('click', getUser);
+
+
+btn_delete.addEventListener('click', () => {
+    if (table_container.style.display == 'flex' | table_container.style.display == ''){
+        console.log('hola');
+        searched = id_checkbox
+        deleteUser(id_checkbox, searched)
+    }
+    else {
+        deleteUser(parseInt(data.value), searched)
+    }
+});
