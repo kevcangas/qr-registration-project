@@ -15,9 +15,9 @@ class Users(BaseModel):
     )
 
 
-class modUsers(Users):
+class modUsers(BaseModel):
     
-    id: int = Field(
+    group: int = Field(
         ...,
         example = 1
     )

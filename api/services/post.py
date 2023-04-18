@@ -37,12 +37,12 @@ def createObject(object, body_type):
                 start_time=body_type.start_time,
                 user=body_type.user)
 
+        ida = newObject.id
+        newObject.save(force_insert=True)
+        newObject.id = ida
+
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
-
-    ida = newObject.id
-    newObject.save(force_insert=True)
-    newObject.id = ida
 
     return {
         "detail": newObject.__data__

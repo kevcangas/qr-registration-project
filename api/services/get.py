@@ -48,7 +48,7 @@ def peopleWorkgroup(work_group_id):
         workgroup_selected = Workgroups.get_by_id(work_group_id)
         superviser_in_group = Supervisers.get_by_id(workgroup_selected.superviser)
 
-        people = [("superviser", superviser_in_group.name)]
+        people = [("superviser", superviser_in_group.__data__)]
         users = []
         for person in users_in_workgroup:
             users.append(person.__data__)

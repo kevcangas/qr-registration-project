@@ -29,8 +29,7 @@ def modifyObject(object, id_object, body_type):
              if Users.get_by_id(id_object):
                 modObject = Users(
                                 id=id_object, 
-                                group=body_type.group, 
-                                name=body_type.name
+                                group=body_type.group
                                 )
                 
         elif object == 'sessions': 
@@ -41,12 +40,14 @@ def modifyObject(object, id_object, body_type):
                                 #start_time=body_type.start_time,
                                 #user=body_type.user
                                 )
+        
+        ida = modObject.id
+        modObject.save()
+        modObject.id = ida
+
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
 
-    ida = modObject.id
-    modObject.save()
-    modObject.id = ida
 
     return {
         "detail": modObject.__data__

@@ -134,8 +134,8 @@ def mod_workgroup(
 
 @api.put(path=ver+'/users/{id_object}', tags=["Users"])
 def mod_user(
-        id_object: int = Path(..., example=1)
-        , objectType: Users = Body(...)
+        id_object: int = Path(..., example=1), 
+        objectType: modUsers = Body(...)
         ):
     return put.modifyObject('users', id_object, objectType)
 

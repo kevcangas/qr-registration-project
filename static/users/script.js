@@ -26,6 +26,13 @@ const btn_delete = document.querySelector('.del')
 var checkboxes
 
 
+//Elements to create new user
+const form_create_container = document.querySelector('.form-create-container')
+const form_new_user_name = document.querySelector('.new-user-name')
+const btn_create_user = document.querySelector('.create')
+const btn_send_new_user = document.querySelector('.send-new-user')
+
+
 //functions
 //functions to all users
 function getUsers() {
@@ -48,45 +55,42 @@ function getUsers() {
 
 function showUsers(users) {
     
-    return new Promise((resolve, reject) =>{
-        for (user of users){
+    for (user of users){
 
-            const row = document.createElement('tr');
+        const row = document.createElement('tr');
 
-            const checkContainer = document.createElement('td')
+        const checkContainer = document.createElement('td')
 
-            const checkUser = document.createElement('input')
-            checkUser.type = 'checkbox'
-            checkUser.classList.add('checkbox')
+        const checkUser = document.createElement('input')
+        checkUser.type = 'checkbox'
+        checkUser.classList.add('checkbox')
 
-            const ID = document.createElement('td');
-            ID.innerText = user.id;
+        const ID = document.createElement('td');
+        ID.innerText = user.id;
 
-            checkUser.name = ID.innerText
+        checkUser.name = ID.innerText
 
-            const name = document.createElement('td');
-            name.innerText = user.name;
+        const name = document.createElement('td');
+        name.innerText = user.name;
 
-            const groupID = document.createElement('td');
-            groupID.innerText = user.group;
+        const groupID = document.createElement('td');
+        groupID.innerText = user.group;
 
-            checkContainer.appendChild(checkUser)
+        checkContainer.appendChild(checkUser)
 
-            row.appendChild(checkContainer)
-            row.appendChild(ID)
-            row.appendChild(name)
-            row.appendChild(groupID)
-            table_body.appendChild(row)
-        }
-        resolve()
-    })
-    .then(() => {
-            checkboxes = document.querySelectorAll('.checkbox');
+        row.appendChild(checkContainer)
+        row.appendChild(ID)
+        row.appendChild(name)
+        row.appendChild(groupID)
+        table_body.appendChild(row)
+    }
+        
+    checkboxes = document.querySelectorAll('.checkbox');
 
-            for (checkbox of checkboxes){
-                checkbox.addEventListener('input', selectUser);
-            }
-        })
+    for (checkbox of checkboxes){
+        checkbox.addEventListener('input', selectUser);
+    }
+    
 }
 
 
@@ -141,10 +145,7 @@ function showUser(user) {
 
 //functions to activate or deactivate views
 function activateAllUsers() {
-    table_container.style.display='flex'
-
-    form_container.style.display='none'
-    table_search.style.display='none'
+    window.location.reload()
 }
 
 
@@ -153,6 +154,18 @@ function activateSearchUser() {
 
     form_container.style.display='flex'
     table_search.style.display='flex'
+
+    form_create_container.style.display='none'
+}
+
+
+function activateCreateUser() {
+    table_container.style.display='none'
+
+    form_container.style.display='none'
+    table_search.style.display='none'
+
+    form_create_container.style.display='flex'
 }
 
 
@@ -177,32 +190,57 @@ function selectUser() {
 
 function deleteUser(id, searched) {
     if (id == searched){
-        return new Promise((resolve,reject) =>{
-            const endpoint = 'v1/users/'
-            const URL = ip + endpoint
+        const endpoint = 'v1/users/'
+        const URL = ip + endpoint
 
-            console.log(id);
+        console.log(id);
 
-            request.open('DELETE', URL + id);
-            request.responseType = 'json';
-            request.onload = function () {
-                if (this.status == 200){
-                    var users = this.response;
-                    showUser(users.detail)
-                } else {
-                    console.log(`An error occurred during your request! Code: ${request.status}`);
-                    var user = {name: 'No exists', id: 'No exists', group: 'No exists'}
-                    showUser(user)
-                }
+        request.open('DELETE', URL + id);
+        request.responseType = 'json';
+        request.onload = function () {
+            if (this.status == 200){
+                window.location.reload()
+            } 
+            else {
+                console.log(`An error occurred during your request! Code: ${request.status}`);
             }
-            request.send();
-            resolve()
-        })
-        .then(() => window.location.reload())
+        }
+        request.send();
     } 
     else {
         console.log("User and searched user don't match");
     }
+}
+
+
+//Functions to create users
+function createUser() {
+    
+    const endpoint = 'v1/users/'
+    const URL = ip + endpoint
+
+    newUser = {
+        name: form_new_user_name.value
+    }
+
+    console.log(JSON.stringify(newUser));
+
+    request.open('POST', URL);
+    request.responseType = 'json';
+    request.onload = function () {
+        if (this.status == 200){
+            var users = this.response;
+            activateSearchUser()
+            showUser(users.detail)
+            //setTimeout(window.location.reload(), 10000);
+        } 
+        else {
+            console.log(`An error occurred during your request! Code: ${request.status}`);   
+        }
+    }
+    request.setRequestHeader('Content-Type', 'application/json')
+    request.send(JSON.stringify(newUser));
+        
 }
 
 
@@ -214,6 +252,10 @@ btn_all_users.addEventListener('click', activateAllUsers)
 btn_search.addEventListener('click', activateSearchUser)
 
 btn_send.addEventListener('click', getUser);
+
+btn_create_user.addEventListener('click', activateCreateUser)
+
+btn_send_new_user.addEventListener('click', createUser)
 
 
 btn_delete.addEventListener('click', () => {
