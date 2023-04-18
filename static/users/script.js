@@ -33,6 +33,12 @@ const btn_create_user = document.querySelector('.create')
 const btn_send_new_user = document.querySelector('.send-new-user')
 
 
+//Elements to assign group
+const form_assign_container = document.querySelector('.form-assign-container')
+const form_group_id = document.querySelector('.group-id-assign')
+const btn_send_group_id = document.querySelector('.send-group-id')
+
+
 //functions
 //functions to all users
 function getUsers() {
@@ -156,6 +162,12 @@ function activateSearchUser() {
     table_search.style.display='flex'
 
     form_create_container.style.display='none'
+
+    form_assign_container.style.display='flex'
+
+    data.value = null
+    form_new_user_name.value = null
+    form_group_id.value = null
 }
 
 
@@ -166,7 +178,28 @@ function activateCreateUser() {
     table_search.style.display='none'
 
     form_create_container.style.display='flex'
+
+    form_assign_container.style.display='none'
+
+    data.value = null
+    form_new_user_name.value = null
+    form_group_id.value = null
 }
+
+
+// function activateAssignGroup() {
+
+//     if (table_container.style.display=='none' & table_search.style.display=='none') {
+//         table_container.style.display='flex'
+//     }
+
+//     //form_container.style.display='none'
+//     //table_search.style.display='none'
+
+//     form_create_container.style.display='none'
+
+//     form_assign_container.style.display='flex'
+// }
 
 
 //functions to delete a selected person
