@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="QR Code register">
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/static/mobile/styles.css" media="screen">
+    <script src="http://127.0.0.1:8000/static/mobile/lib/jsqrcode-combined.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="http://127.0.0.1:8000/static/mobile/lib/html5-qrcode.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('#reader').html5_qrcode(function(data){
+            $('#result').html(data);
+          },
+          function(error){
+            $('#error').html("Scanning...");
+          }, function(videoError){
+            $('#error').html("Camera error.");
+          }
+        );
+      });
+    </script>
+    
+    <title>Mobile Register</title>
+  </head>
+  <body>
+    <div class="main-container">
+      <header>Mobile Register</header>
+      <span id="error" class="center"></span>
+      <div id="reader" style="width:300px;height:250px"></div>
+
+      <div class="user-container">
+        <span>Detected user: </span>
+        <span id="result" class="center"></span>
+      </div>
+      
+      <input type="text" class="group-id" placeholder="Enter group's id">
+
+      <div class="button-container">
+        <button class="add">Add</button>
+        <button class="delete">Delete</button>
+      </div>
+
+      <div class="alert success">
+        <span class="closebtn">&times;</span>  
+        <strong>Success!</strong> The user was registered succesfully.
+      </div>
+
+      <div class="alert warning">
+        <span class="closebtn">&times;</span>  
+        <strong>Warning!</strong> An error was occurred, try again.
+      </div>
+
+    </div>
+  </body>
+  <script src="http://127.0.0.1:8000/static/mobile/script.js"></script>
+</html>

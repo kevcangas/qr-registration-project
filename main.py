@@ -1,3 +1,7 @@
+#uvicorn
+import uvicorn
+
+
 #api
 from api.api import api
 from webpage.webpage import webpage
@@ -22,5 +26,15 @@ def start_application():
 
 
 app = start_application()
+
+
+def run():
+	config = uvicorn.Config("main:app", port=8000, host="0.0.0.0", log_level="info")
+	server = uvicorn.Server(config)
+	server.run()
+
+
+if __name__ == '__main__':
+	run()
 
 

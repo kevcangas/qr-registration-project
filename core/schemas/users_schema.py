@@ -1,3 +1,7 @@
+#python
+from typing import Optional
+
+
 #pydantic
 from pydantic import BaseModel, Field
 
@@ -17,7 +21,7 @@ class Users(BaseModel):
 
 class modUsers(BaseModel):
     
-    group: int = Field(
+    group: Optional[int] = Field(
         ...,
         example = 1
     )
