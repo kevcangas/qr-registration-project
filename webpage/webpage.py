@@ -8,7 +8,7 @@ webpage = APIRouter()
 
 @webpage.get(path='/')
 def returnHome():
-    return RedirectResponse("http://127.0.0.1:8000/home")
+    return RedirectResponse("http://192.168.1.198:8000/home")
 
 
 @webpage.get(path='/home')
