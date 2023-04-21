@@ -18,7 +18,11 @@ from fastapi import Path, Body
 
 
 api = APIRouter()
+
+
+#API name
 ver = '/v1'
+
 
 #GET petitions
 @api.get(path=ver+'/supervisers', tags=["Supervisers"])

@@ -8,14 +8,22 @@ import peewee
 from core.settings import Settings
 
 
-settings = Settings()
+def run():
+    settings = Settings()
 
-DB_NAME = settings.db_name
-DB_USER = settings.db_user
-DB_PASS = settings.db_pass
-DB_HOST = settings.db_host
-DB_PORT = settings.db_port
+    DB_NAME = settings.db_name
+    DB_USER = settings.db_user
+    DB_PASS = settings.db_pass
+    DB_HOST = settings.db_host
+    DB_PORT = settings.db_port
 
-db = peewee.MySQLDatabase(DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST, port=DB_PORT)
+    COMMAND = "py -m pwiz -e mysql -u" + str(DB_USER) + " " + str(DB_NAME) + "> utils/mymodels.txt"
 
-subprocess.run(['py','-m','pwiz','-e','mysql','-u','root','qr-project','>','mymodels.py'])
+    subprocess.run(COMMAND, shell=True)
+    
+    #py -m pwiz -e mysql -u root qr-project > mymodels.py
+
+
+#This module create a text file that contents all the tables read from the database
+if __name__ == '__main__':
+    run()
