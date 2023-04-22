@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/static/users/styles.css" media="screen"> -->
-    <link rel="stylesheet" type="text/css" href="http://192.168.1.198:8000/static/users/styles.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='users/styles.css') }}" media="screen">
     <title>Users</title>
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="http://192.168.1.198:8000/home">Home</a></li>
-            <li><a href="http://192.168.1.198:8000/users">Users</a></li>
-            <li><a href="http://192.168.1.198:8000/workgroups">Workgroups</a></li>
-            <li><a href="http://192.168.1.198:8000/supervisers">Supervisers</a></li>
-            <li><a href="http://192.168.1.198:8000/sessions">Sessions</a></li>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/workgroups">Workgroups</a></li>
+            <li><a href="/supervisers">Supervisers</a></li>
+            <li><a href="/sessions">Sessions</a></li>
         </ul>
     </nav>
     
@@ -97,7 +96,5 @@
     </div>
     
 </body>
-<!-- <script src="script.js"></script> -->
-<!-- <script src="http://127.0.0.1:8000/static/users/script.js"></script> -->
-<script src="http://192.168.1.198:8000/static/users/script.js"></script>
+<script src="{{ url_for('static', path='users/script.js') }}"></script>
 </html>

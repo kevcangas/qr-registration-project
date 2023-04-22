@@ -1,26 +1,30 @@
 #fastapi
-from fastapi import APIRouter
-from fastapi.responses import FileResponse, RedirectResponse
+from fastapi import APIRouter, Request
+from fastapi.responses import FileResponse, RedirectResponse, HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 
 webpage = APIRouter()
 
 
-@webpage.get(path='/')
+templates = Jinja2Templates(directory="static")
+
+
+@webpage.get(path='/', response_class=HTMLResponse)
 def returnHome():
-    return RedirectResponse("http://192.168.1.198:8000/home")
+    return RedirectResponse("/home")
 
 
-@webpage.get(path='/home')
-def home():
-    return FileResponse(r".\static\home\index.html")
+@webpage.get(path='/home', response_class=HTMLResponse)
+def home(request: Request):
+    return templates.TemplateResponse("/home/index.html",{"request": request})
+    
+
+@webpage.get(path='/users', response_class=HTMLResponse)
+def users(request: Request):
+    return templates.TemplateResponse("/users/index.html",{"request": request})
 
 
-@webpage.get(path='/users')
-def users():
-    return FileResponse(r".\static\users\index.html")
-
-
-@webpage.get(path='/mobile')
-def users():
-    return FileResponse(r".\static\mobile\index.html")
+@webpage.get(path='/mobile', response_class=HTMLResponse)
+def users(request: Request):
+    return templates.TemplateResponse("/mobile/index.html",{"request": request})

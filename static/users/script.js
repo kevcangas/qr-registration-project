@@ -1,6 +1,6 @@
 //AJAX fot requests
 const request = new XMLHttpRequest();
-const ip = 'http://192.168.1.198:8000/'
+const ip = 'http://192.168.1.76:8000/'
 
 
 //Elements
@@ -185,21 +185,6 @@ function activateCreateUser() {
     form_new_user_name.value = null
     form_group_id.value = null
 }
-
-
-// function activateAssignGroup() {
-
-//     if (table_container.style.display=='none' & table_search.style.display=='none') {
-//         table_container.style.display='flex'
-//     }
-
-//     //form_container.style.display='none'
-//     //table_search.style.display='none'
-
-//     form_create_container.style.display='none'
-
-//     form_assign_container.style.display='flex'
-// }
 
 
 //functions to delete a selected person
