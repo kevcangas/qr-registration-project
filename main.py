@@ -29,7 +29,8 @@ app = start_application()
 
 
 def run():
-	config = uvicorn.Config("main:app", port=8000, host="0.0.0.0", log_level="info", reload=True)
+	IP = "127.0.0.1"
+	config = uvicorn.Config("main:app", port=8000, host=IP, log_level="info", reload=True)
 	server = uvicorn.Server(config)
 	server.run()
 
