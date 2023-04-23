@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='users/styles.css') }}" media="screen">
-    <title>Users</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='workgroups/styles.css') }}" media="screen">
+
+    <title>Document</title>
 </head>
 <body>
     <nav>
@@ -17,10 +19,10 @@
             <li><a href="/sessions">Sessions</a></li>
         </ul>
     </nav>
-    
+
     <div class="main-container">
         
-        <header>Registered users</header>
+        <header>Workgroups</header>
 
         <div class="table-container">
             <div class="table-header">
@@ -30,8 +32,7 @@
                             <tr class="titles">
                                 <th></th>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Group ID</th>
+                                <th>Superviser</th>
                             </tr>
                         </thead>
                     </thead>
@@ -52,7 +53,6 @@
                         <tr class="titles">
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Group ID</th>
                         </tr>
                     </thead>
                 </table>
@@ -60,13 +60,13 @@
             <div class="table-body">
                 <table>
                     <tbody>
-                        <tr class="old-row"></tr>
+                        <tr class="old-row-1"></tr>
                     </tbody>
                 </table>
             </div>
             <div class="form-container">
                 <li>
-                    <input type="text" placeholder="Introduce the user ID">
+                    <input type="text" placeholder="Introduce the workgroup ID">
                     <button class="send">Search</button>
                 </li>
             </div>
@@ -74,27 +74,20 @@
 
         <div class="form-create-container">
             <li>
-                <input type="text" placeholder="Introduce the user name" class="new-user-name">
-                <button class="send-new-user">Send info</button>
+                <input type="text" placeholder="Introduce the supervisers's ID" class="new-workgroup-superviser">
+                <button class="send-new-workgroup">Create workgroup</button>
             </li>
         </div>
 
-        <!-- <div class="form-assign-container">
-            <li>
-                <input type="text" placeholder="Introduce the group's ID to assign" class="group-id-assign">
-                <button class="send-group-id">Assign group</button>
-            </li>
-        </div> -->
-
         <div class="btn-container">
-            <button class="all-users">All users</button>
-            <button class="search">Search user by id</button>
-            <button class="create">Create user</button>
-            <button class="del">Delete selected user</button>
+            <button class="all-workgroups">All workgroups</button>
+            <button class="search">Get users in the workgroup</button>
+            <button class="create">Create workgroup</button>
+            <button class="del">Delete selected workgroup</button>
         </div>
     
     </div>
     
 </body>
-<script src="{{ url_for('static', path='users/script.js') }}"></script>
+<script src="{{ url_for('static', path='workgroups/script.js') }}"></script>
 </html>

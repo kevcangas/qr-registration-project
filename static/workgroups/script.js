@@ -7,7 +7,7 @@ const ip = 'http://127.0.0.1:8000/'
 //Elements
 const main = document.querySelector('.main-container')
 //Elements to show all users
-const btn_all_users = document.querySelector('.all-users');
+const btn_all_workgroups = document.querySelector('.all-workgroups');
 const table_container = document.querySelector('.table-container')
 const table_body = document.querySelector('.table-container tbody')
 
@@ -28,11 +28,11 @@ const btn_delete = document.querySelector('.del')
 var checkboxes
 
 
-//Elements to create new user
+//Elements to create new workgroup
 const form_create_container = document.querySelector('.form-create-container')
-const form_new_user_name = document.querySelector('.new-user-name')
-const btn_create_user = document.querySelector('.create')
-const btn_send_new_user = document.querySelector('.send-new-user')
+const btn_create_workgroup = document.querySelector('.create')
+const form_new_workgroup_superviser = document.querySelector('.new-workgroup-superviser')
+const btn_send_new_workgroup = document.querySelector('.send-new-workgroup')
 
 
 //Elements to assign group
@@ -44,7 +44,7 @@ const btn_send_group_id = document.querySelector('.send-group-id')
 //functions
 //functions to all users
 function getUsers() {
-    const endpoint = 'v1/users'
+    const endpoint = 'v1/workgroups'
     const URL = ip + endpoint
     
     request.open('GET', URL);
@@ -52,7 +52,7 @@ function getUsers() {
     request.onload = function () {
         if (this.status == 200){
             var users = this.response;
-            showUsers(users.detail)
+            showWorkgroups(users.detail)
         } else {
             console.log(`An error occurred during your request! Code: ${request.status}`);
         }
@@ -61,9 +61,9 @@ function getUsers() {
 }
 
 
-function showUsers(users) {
+function showWorkgroups(workgroups) {
     
-    for (user of users){
+    for (workgroup of workgroups){
 
         const row = document.createElement('tr');
 
@@ -74,22 +74,18 @@ function showUsers(users) {
         checkUser.classList.add('checkbox')
 
         const ID = document.createElement('td');
-        ID.innerText = user.id;
+        ID.innerText = workgroup.id;
 
         checkUser.name = ID.innerText
 
-        const name = document.createElement('td');
-        name.innerText = user.name;
-
-        const groupID = document.createElement('td');
-        groupID.innerText = user.group;
+        const superviser = document.createElement('td')
+        superviser.innerText = workgroup.superviser
 
         checkContainer.appendChild(checkUser)
 
         row.appendChild(checkContainer)
         row.appendChild(ID)
-        row.appendChild(name)
-        row.appendChild(groupID)
+        row.appendChild(superviser)
         table_body.appendChild(row)
     }
         
@@ -102,21 +98,48 @@ function showUsers(users) {
 }
 
 
+function showWorkgroupUsers(users) {
+    
+    const rows = document.querySelectorAll('.table-search .table-body table tbody tr')
+
+    
+    for (row of rows){
+        table_body_search.removeChild(row)
+    }
+
+    for (user of users){
+       
+        const row = document.createElement('tr');
+
+        const ID = document.createElement('td');
+        ID.innerText = user.id;
+
+        const name = document.createElement('td')
+        name.innerText = user.name
+
+        row.appendChild(ID)
+        row.appendChild(name)
+
+        table_body_search.appendChild(row)
+    }
+}
+
+
 //functions to show a user by id
 var searched = null
 function getUser() {
-    const endpoint = 'v1/users/'
+    const endpoint = 'v1/workgroups/'
     const URL = ip + endpoint
 
     id = data.value;
     console.log(id);
 
-    request.open('GET', URL + id);
+    request.open('GET', URL + id + '/users');
     request.responseType = 'json';
     request.onload = function () {
         if (this.status == 200){
-            var users = this.response;
-            showUser(users.detail)
+            var workgroup_users = this.response;
+            showWorkgroupUsers(workgroup_users.detail.users)
         } else {
             console.log(`An error occurred during your request! Code: ${request.status}`);
             var user = {name: 'No exists', id: 'No exists', group: 'No exists'}
@@ -127,32 +150,8 @@ function getUser() {
 }
 
 
-function showUser(user) {
-    const old_row = document.querySelector('.old-row')
-    
-    const row = document.createElement('tr');
-
-    const ID = document.createElement('td');
-    ID.innerText = user.id;
-    searched = parseInt(ID.innerText)
-
-    const name = document.createElement('td');
-    name.innerText = user.name;
-
-    const groupID = document.createElement('td');
-    groupID.innerText = user.group;
-
-    row.appendChild(ID)
-    row.appendChild(name)
-    row.appendChild(groupID)
-    row.classList.add('old-row')
-
-    table_body_search.replaceChild(row, old_row)
-}
-
-
 //functions to activate or deactivate views
-function activateAllUsers() {
+function activateAllWorkgroups() {
     window.location.reload()
 }
 
@@ -168,12 +167,12 @@ function activateSearchUser() {
     form_assign_container.style.display='flex'
 
     data.value = null
-    form_new_user_name.value = null
+    form_new_workgroup_name.value = null
     form_group_id.value = null
 }
 
 
-function activateCreateUser() {
+function activateCreateWorkgroup() {
     table_container.style.display='none'
 
     form_container.style.display='none'
@@ -184,7 +183,7 @@ function activateCreateUser() {
     form_assign_container.style.display='none'
 
     data.value = null
-    form_new_user_name.value = null
+    form_new_workgroup_name.value = null
     form_group_id.value = null
 }
 
@@ -210,7 +209,7 @@ function selectUser() {
 
 function deleteUser(id, searched) {
     if (id == searched){
-        const endpoint = 'v1/users/'
+        const endpoint = 'v1/workgroups/'
         const URL = ip + endpoint
 
         console.log(id);
@@ -234,32 +233,29 @@ function deleteUser(id, searched) {
 
 
 //Functions to create users
-function createUser() {
+function createWorkgroup() {
     
-    const endpoint = 'v1/users/'
+    const endpoint = 'v1/workgroups/'
     const URL = ip + endpoint
 
-    newUser = {
-        name: form_new_user_name.value
+    newWorkgroup = {
+        superviser_id: form_new_workgroup_superviser.value
     }
 
-    console.log(JSON.stringify(newUser));
+    console.log(JSON.stringify(newWorkgroup));
 
     request.open('POST', URL);
     request.responseType = 'json';
     request.onload = function () {
         if (this.status == 200){
-            var users = this.response;
-            activateSearchUser()
-            showUser(users.detail)
-            //setTimeout(window.location.reload(), 10000);
+            activateAllWorkgroups()
         } 
         else {
             console.log(`An error occurred during your request! Code: ${request.status}`);   
         }
     }
     request.setRequestHeader('Content-Type', 'application/json')
-    request.send(JSON.stringify(newUser));
+    request.send(JSON.stringify(newWorkgroup));
         
 }
 
@@ -267,15 +263,15 @@ function createUser() {
 //listeners
 window.addEventListener('load', getUsers);
 
-btn_all_users.addEventListener('click', activateAllUsers)
+btn_all_workgroups.addEventListener('click', activateAllWorkgroups)
 
 btn_search.addEventListener('click', activateSearchUser)
 
 btn_send.addEventListener('click', getUser);
 
-btn_create_user.addEventListener('click', activateCreateUser)
+btn_create_workgroup.addEventListener('click', activateCreateWorkgroup)
 
-btn_send_new_user.addEventListener('click', createUser)
+btn_send_new_workgroup.addEventListener('click', createWorkgroup)
 
 
 btn_delete.addEventListener('click', () => {

@@ -26,3 +26,8 @@ def users(request: Request):
 @webpage.get(path='/mobile', tags=['Webpage'])
 def users(request: Request):
     return templates.TemplateResponse("/mobile/index.html",{"request": request})
+
+
+@webpage.get(path='/workgroups', tags=['Webpage'])
+def users(request: Request):
+    return templates.TemplateResponse("/workgroups/index.html",{"request": request})
