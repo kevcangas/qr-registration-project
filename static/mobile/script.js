@@ -33,6 +33,7 @@ function addUserGroup() {
     request.responseType = 'json';
     request.onload = function () {
         if (this.status == 200){
+            startUserRecord()
             displaySucces()
         } else {
             displayWarning()
@@ -41,6 +42,50 @@ function addUserGroup() {
 
     request.setRequestHeader('Content-Type', 'application/json')
     request.send(JSON.stringify(data));
+}
+
+
+function startUserRecord() {
+    
+    const endpoint = 'v1/sessions'
+    const URL = ip + endpoint
+
+    const event = new Date(Date.now());
+    data = {
+        start_time: event.toISOString(),
+        user: parseInt(id_user.innerText)
+    }
+
+    request.open('POST', URL);
+    request.responseType = 'json';
+    request.onload = function() {
+
+    }
+
+    request.setRequestHeader('Content-Type', 'application/json')
+    request.send(JSON.stringify(data));
+
+}
+
+
+function stopUserRecord() {
+    const endpoint = 'v1/sessions/user/'
+    const URL = ip + endpoint + id_user.innerText
+
+    const event = new Date(Date.now());
+    data = {
+        end_time: event.toISOString()
+    }
+
+    request.open('PUT', URL);
+    request.responseType = 'json';
+    request.onload = function() {
+        
+    }
+    
+    request.setRequestHeader('Content-Type', 'application/json')
+    request.send(JSON.stringify(data));
+
 }
 
 
@@ -57,6 +102,7 @@ function deletePetition(id) {
         request.responseType = 'json';
         request.onload = function () {
             if (this.status == 200){
+                stopUserRecord()
                 displaySucces()
             } else {
                 console.log(this.response);

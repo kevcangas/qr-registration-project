@@ -52,3 +52,17 @@ def modifyObject(object, id_object, body_type):
     return {
         "detail": modObject.__data__
     }
+
+
+def finishUserSession(id_user, body_type):
+    userSelected = Users.get_by_id(id_user)
+    userSession = Sessions.select().where(Sessions.user == userSelected.id)[-1]
+    userSession.end_time = body_type.end_time
+    
+    ida = userSession.id
+    userSession.save() 
+    userSession.id = ida
+
+    return {
+        "detail": userSession.__data__
+    }

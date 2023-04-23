@@ -152,6 +152,14 @@ def mod_session(
     return put.modifyObject('sessions', id_object, objectType)
 
 
+@api.put(path=ver+'/sessions/user/{id_user}', tags=['Sessions'])
+def delete_user_session(
+        id_user: int = Path(..., example=1), 
+        objectType: modSessions = Body(...)
+        ):
+    return put.finishUserSession(id_user, objectType)
+
+
 #DELETE petitions
 
 @api.delete(path=ver+'/supervisers/{id_object}', tags=['Supervisers'])
