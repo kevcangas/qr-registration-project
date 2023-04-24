@@ -1,3 +1,7 @@
+#python
+import subprocess
+
+
 #uvicorn
 import uvicorn
 
@@ -29,11 +33,14 @@ app = start_application()
 
 
 def run():
-	IP = "127.0.0.1"
-	config = uvicorn.Config("main:app", port=8000, host=IP, log_level="info", reload=True)
-	server = uvicorn.Server(config)
-	server.run()
-
+	# IP = "127.0.0.1"
+	# config = uvicorn.Config("main:app", port=8000, host=IP, log_level="info", reload=True)
+	# server = uvicorn.Server(config)
+	# server.run()
+	try:
+		subprocess.run("uvicorn main:app --reload", shell=True)
+	except:
+		print("Execution finished")
 
 if __name__ == '__main__':
 	run()

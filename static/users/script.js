@@ -165,11 +165,11 @@ function activateSearchUser() {
 
     form_create_container.style.display='none'
 
-    form_assign_container.style.display='flex'
+    //form_assign_container.style.display='flex'
 
     data.value = null
     form_new_user_name.value = null
-    form_group_id.value = null
+    //form_group_id.value = null
 }
 
 
@@ -181,11 +181,11 @@ function activateCreateUser() {
 
     form_create_container.style.display='flex'
 
-    form_assign_container.style.display='none'
+    //form_assign_container.style.display='none'
 
     data.value = null
     form_new_user_name.value = null
-    form_group_id.value = null
+    //form_group_id.value = null
 }
 
 
