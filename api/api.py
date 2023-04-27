@@ -98,6 +98,11 @@ def get_users_in_workgroup(id_workgroup: int = Path(..., example=1)):
     return get.peopleWorkgroup(id_workgroup)
 
 
+@api.get(path=ver+'/users/{id_user}/sessions', tags=["Users"])
+def get_user_sessions(id_user: int = Path(..., example=1)):
+    return get.userSessions(id_user)
+
+
 #POST petitions
 @api.post(path=ver+'/supervisers', tags=["Supervisers"])
 def new_superviser(objectType: Supervisers = Body(...)):

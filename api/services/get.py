@@ -58,3 +58,19 @@ def peopleWorkgroup(work_group_id):
         }
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+    
+
+#Gives the sessions that an user has
+def userSessions(user_id):
+    try:
+        user_sessions = Sessions.select().where(Sessions.user == user_id)
+
+        sessions = []
+        for session in user_sessions:
+            sessions.append(session.__data__)
+
+        return {
+            "detail": sessions
+        }
+    except:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
