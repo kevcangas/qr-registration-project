@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='users/styles.css') }}" media="screen">
-    <title>Users</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='supervisers/styles.css') }}" media="screen">
+    <title>Supervisers</title>
 </head>
 <body>
     <nav>
@@ -20,7 +20,7 @@
     
     <div class="main-container">
         
-        <header>Registered users</header>
+        <header>Registered supervisers</header>
 
         <div class="table-container">
             <div class="table-header">
@@ -31,7 +31,6 @@
                                 <th></th>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Group ID</th>
                             </tr>
                         </thead>
                     </thead>
@@ -52,7 +51,6 @@
                         <tr class="titles">
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Group ID</th>
                         </tr>
                     </thead>
                 </table>
@@ -80,15 +78,14 @@
         </div>
 
         <div class="btn-container">
-            <button class="all-users">All users</button>
-            <button class="search">Search user by id</button>
-            <button class="create">Create user</button>
-            <button class="del">Delete selected user</button>
-            <a href="/mobile"><button class="del">Join user to group</button></a>
+            <button class="all-users">All supervisers</button>
+            <button class="search">Search superviser by id</button>
+            <button class="create">Create superviser</button>
+            <button class="del">Delete selected superviser</button>
         </div>
     
     </div>
     
 </body>
-<script src="{{ url_for('static', path='users/script.js') }}"></script>
+<script src="{{ url_for('static', path='supervisers/script.js') }}"></script>
 </html>

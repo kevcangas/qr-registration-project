@@ -31,3 +31,13 @@ def users(request: Request):
 @webpage.get(path='/workgroups', tags=['Webpage'])
 def users(request: Request):
     return templates.TemplateResponse("/workgroups/index.html",{"request": request})
+
+
+@webpage.get(path='/supervisers', tags=['Webpage'])
+def users(request: Request):
+    return templates.TemplateResponse("/supervisers/index.html",{"request": request})
+
+
+@webpage.get(path='/sessions', tags=['Webpage'])
+def users(request: Request):
+    return templates.TemplateResponse("/sessions/index.html",{"request": request})

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='users/styles.css') }}" media="screen">
-    <title>Users</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='sessions/styles.css') }}" media="screen">
+    <title>Sessions</title>
 </head>
 <body>
     <nav>
@@ -17,10 +17,10 @@
             <li><a href="/sessions">Sessions</a></li>
         </ul>
     </nav>
-    
+
     <div class="main-container">
         
-        <header>Registered users</header>
+        <header>Sessions</header>
 
         <div class="table-container">
             <div class="table-header">
@@ -30,8 +30,9 @@
                             <tr class="titles">
                                 <th></th>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Group ID</th>
+                                <th>User</th>
+                                <th>Start time</th>
+                                <th>End time</th>
                             </tr>
                         </thead>
                     </thead>
@@ -51,8 +52,9 @@
                     <thead>
                         <tr class="titles">
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Group ID</th>
+                            <th>User</th>
+                            <th>Start time</th>
+                            <th>End time</th>
                         </tr>
                     </thead>
                 </table>
@@ -72,23 +74,13 @@
             </div>
         </div>
 
-        <div class="form-create-container">
-            <li>
-                <input type="text" placeholder="Introduce the user name" class="new-user-name">
-                <button class="send-new-user">Send info</button>
-            </li>
-        </div>
-
         <div class="btn-container">
-            <button class="all-users">All users</button>
-            <button class="search">Search user by id</button>
-            <button class="create">Create user</button>
-            <button class="del">Delete selected user</button>
-            <a href="/mobile"><button class="del">Join user to group</button></a>
+            <button class="all-users">All sessions</button>
+            <button class="search">User's session</button>
+            <button class="del">Delete selected session</button>
         </div>
     
     </div>
-    
 </body>
-<script src="{{ url_for('static', path='users/script.js') }}"></script>
+<script src="{{ url_for('static', path='sessions/script.js') }}"></script>
 </html>
