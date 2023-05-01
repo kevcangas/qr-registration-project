@@ -4,8 +4,6 @@
 
 This project can generate a registration with a QR code. The objective is resgistry people that start a work session with a group or a person, with this project the control of people in work groups will be more efficient and easy to do.
 
-## Project tasks
-
 ## Stage 1. Project’s design
 
 ### Flow of the app
