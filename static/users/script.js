@@ -1,6 +1,6 @@
 //AJAX fot requests
 const request = new XMLHttpRequest();
-//const ip = 'http://192.168.1.76:8000/'
+//const ip = 'http://192.168.1.198:8000/'
 const ip = 'http://127.0.0.1:8000/'
 
 
